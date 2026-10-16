@@ -6,7 +6,7 @@ Add-Type -Path "$PSScriptRoot\ImageKit.cs" -ReferencedAssemblies System.Drawing
 
 $root = Split-Path $PSScriptRoot -Parent
 $src  = Join-Path $root 'Initial Image'
-$out  = Join-Path $root 'assets\img\photos'
+$out  = Join-Path $root 'docs\assets\img\photos'
 New-Item -ItemType Directory -Force $out | Out-Null
 
 # slug, source file id prefix, crop (x, y, w, h as fractions). Crops remove camera

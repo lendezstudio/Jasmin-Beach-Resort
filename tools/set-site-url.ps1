@@ -9,7 +9,7 @@ param(
 
 if (-not $Url.EndsWith('/')) { $Url += '/' }
 if (-not $From.EndsWith('/')) { $From += '/' }
-$site = Split-Path $PSScriptRoot -Parent
+$site = Join-Path (Split-Path $PSScriptRoot -Parent) 'docs'
 $utf8 = New-Object System.Text.UTF8Encoding $false
 
 Get-ChildItem "$site\*" -File -Include *.html, *.xml, *.txt | ForEach-Object {

@@ -6,7 +6,7 @@ Designed and built by Lendez Studio. Concept status: **awaiting client approval*
 ## Structure
 
 ```
-Website (repository root, served by GitHub Pages):
+docs/                     ← the published website (GitHub Pages serves this folder)
   index.html              Home
   stay.html               Stay / accommodations
   dine.html               Dining
@@ -26,12 +26,12 @@ tools/                    PowerShell scripts that rebuild images and brand asset
 Initial Image/, *.pdf     Original source material (kept out of git, see .gitignore)
 ```
 
-No build step is needed: open `index.html` in a browser.
+No build step is needed: open `docs/index.html` in a browser.
 
 ## Deploy to GitHub Pages
 
 1. Push this project to a GitHub repository.
-2. **Settings → Pages → Build and deployment**: Source *Deploy from a branch*, branch `main`, folder `/ (root)`.
+2. **Settings → Pages → Build and deployment**: Source *Deploy from a branch*, branch `main`, folder `/docs`.
 3. The live address used for canonical URLs, Open Graph, the sitemap and the 404 page is currently
    `https://lendezstudio.github.io/Jasmin-Beach-Resort/`. To change it (for example to a custom domain):
 
@@ -48,7 +48,7 @@ The form validates input and never claims to have sent anything unless a real en
 
 - **Now (no endpoint):** after validation, visitors get a "ready to send" panel with *Text this inquiry*
   (pre-filled SMS), *Call the resort* and *Copy details*.
-- **To enable online sending:** set `data-endpoint` on `<form id="inquiry-form">` in `contact.html` to a
+- **To enable online sending:** set `data-endpoint` on `<form id="inquiry-form">` in `docs/contact.html` to a
   tested form-delivery URL (for example a free Formspree or Web3Forms endpoint that delivers to the resort's
   confirmed inbox). The success message appears only when that endpoint returns a success response.
 - `data-phone` on the same form sets the number used for the SMS/call fallback.
@@ -58,7 +58,7 @@ The form validates input and never claims to have sent anything unless a real en
 Requires Windows PowerShell (uses System.Drawing; no installs).
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools\optimize-images.ps1      # photos → assets/img/photos
+powershell -ExecutionPolicy Bypass -File tools\optimize-images.ps1      # photos → docs/assets/img/photos
 powershell -ExecutionPolicy Bypass -File tools\build-brand-assets.ps1   # logo, favicons, OG image
 ```
 

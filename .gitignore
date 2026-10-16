@@ -1,0 +1,8 @@
+# Internal briefing documents and full-resolution originals stay local.
+*.pdf
+Initial Image/
+
+# OS / editor
+Thumbs.db
+.DS_Store
+.vscode/

@@ -6,7 +6,7 @@ Designed and built by Lendez Studio. Concept status: **awaiting client approval*
 ## Structure
 
 ```
-docs/                     ← the published website (GitHub Pages serves this folder)
+Website (repository root, served by GitHub Pages):
   index.html              Home
   stay.html               Stay / accommodations
   dine.html               Dining
@@ -26,19 +26,18 @@ tools/                    PowerShell scripts that rebuild images and brand asset
 Initial Image/, *.pdf     Original source material (kept out of git, see .gitignore)
 ```
 
-No build step is needed: open `docs/index.html` in a browser, or serve the `docs` folder.
+No build step is needed: open `index.html` in a browser.
 
 ## Deploy to GitHub Pages
 
 1. Push this project to a GitHub repository.
-2. **Settings → Pages → Build and deployment**: Source *Deploy from a branch*, branch `main`, folder `/docs`.
-3. Set the live address everywhere it is used (canonical URLs, Open Graph, sitemap, 404 page):
+2. **Settings → Pages → Build and deployment**: Source *Deploy from a branch*, branch `main`, folder `/ (root)`.
+3. The live address used for canonical URLs, Open Graph, the sitemap and the 404 page is currently
+   `https://lendezstudio.github.io/Jasmin-Beach-Resort/`. To change it (for example to a custom domain):
 
    ```powershell
-   powershell -ExecutionPolicy Bypass -File tools\set-site-url.ps1 -Url https://<username>.github.io/<repo>/
+   powershell -ExecutionPolicy Bypass -File tools\set-site-url.ps1 -Url https://example.com/
    ```
-
-   Currently set to `https://lendezstudio.github.io/Jasmin-Beach-Resort/`. Re-run with the new address if a custom domain is added.
 4. After publishing, test the share preview with the Facebook Sharing Debugger and by pasting the link into WhatsApp/Messenger.
 
 All page links and asset paths are relative, so the site works from a project sub-path (`/repo/`) or a custom domain.
@@ -49,7 +48,7 @@ The form validates input and never claims to have sent anything unless a real en
 
 - **Now (no endpoint):** after validation, visitors get a "ready to send" panel with *Text this inquiry*
   (pre-filled SMS), *Call the resort* and *Copy details*.
-- **To enable online sending:** set `data-endpoint` on `<form id="inquiry-form">` in `docs/contact.html` to a
+- **To enable online sending:** set `data-endpoint` on `<form id="inquiry-form">` in `contact.html` to a
   tested form-delivery URL (for example a free Formspree or Web3Forms endpoint that delivers to the resort's
   confirmed inbox). The success message appears only when that endpoint returns a success response.
 - `data-phone` on the same form sets the number used for the SMS/call fallback.
@@ -59,7 +58,7 @@ The form validates input and never claims to have sent anything unless a real en
 Requires Windows PowerShell (uses System.Drawing; no installs).
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools\optimize-images.ps1      # photos → docs/assets/img/photos
+powershell -ExecutionPolicy Bypass -File tools\optimize-images.ps1      # photos → assets/img/photos
 powershell -ExecutionPolicy Bypass -File tools\build-brand-assets.ps1   # logo, favicons, OG image
 ```
 

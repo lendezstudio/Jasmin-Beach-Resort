@@ -7,7 +7,7 @@ Add-Type -AssemblyName System.Drawing
 Add-Type -Path "$PSScriptRoot\ImageKit.cs" -ReferencedAssemblies System.Drawing
 
 $root  = Split-Path $PSScriptRoot -Parent
-$docs  = Join-Path $root 'docs'
+$docs  = $root
 $brand = Join-Path $docs 'assets\img\brand'
 New-Item -ItemType Directory -Force $brand | Out-Null
 

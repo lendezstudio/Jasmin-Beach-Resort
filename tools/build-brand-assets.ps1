@@ -43,6 +43,14 @@ $clear = [ImageKit]::RemoveWhiteBackground($trim, 248, 222)
 $c512 = [ImageKit]::ResizeToWidth($clear, 512)
 $kit = Join-Path $root 'brand-kit'; New-Item -ItemType Directory -Force $kit | Out-Null
 $c512.Save((Join-Path $kit 'logo-transparent-512.png'), [System.Drawing.Imaging.ImageFormat]::Png)
+# Transparent web logos: full colour (light backgrounds) and a light-wordmark
+# version for photography and navy backgrounds.
+$light = [ImageKit]::LightenWordmark($clear, 680, 860, 1025, $white)
+$light.Save((Join-Path $kit 'logo-transparent-light-full.png'), [System.Drawing.Imaging.ImageFormat]::Png)
+foreach ($w in 240) {
+  $r = [ImageKit]::ResizeToWidth($clear, $w); $r.Save((Join-Path $brand "logo-color-$w.png"), [System.Drawing.Imaging.ImageFormat]::Png); $r.Dispose()
+  $r = [ImageKit]::ResizeToWidth($light, $w); $r.Save((Join-Path $brand "logo-light-$w.png"), [System.Drawing.Imaging.ImageFormat]::Png); $r.Dispose()
+}
 $clear.Save((Join-Path $kit 'logo-transparent-full.png'), [System.Drawing.Imaging.ImageFormat]::Png)
 
 # ---------- Favicon: the "J" from the wordmark, on a deep ocean tile ----------

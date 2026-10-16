@@ -133,6 +133,28 @@ public static class ImageKit
         return bmp;
     }
 
+    // Light-on-dark variant of the logo: turns the navy "Jasmin" wordmark (rows from
+    // yWord) and the "BEACH RESORT" line (rows from ySub) into `tint`, keeping alpha,
+    // the coloured scene, waves and hibiscus untouched.
+    public static Bitmap LightenWordmark(Bitmap src, int yWord, int yLoose, int ySub, Color tint)
+    {
+        var bmp = src.Clone(new Rectangle(0, 0, src.Width, src.Height), PixelFormat.Format32bppArgb);
+        for (int y = yWord; y < bmp.Height; y++)
+            for (int x = 0; x < bmp.Width; x++)
+            {
+                var c = bmp.GetPixel(x, y);
+                if (c.A == 0) continue;
+                bool redish = c.R > c.B + 40;
+                double lum = 0.299 * c.R + 0.587 * c.G + 0.114 * c.B;
+                // Above yLoose the teal waves overlap the J, so only true navy converts;
+                // below it, bevel highlights inside the letters convert too.
+                bool navy = c.B >= c.R && (y >= yLoose ? (c.G < 160 && lum < 170) : (c.G < 100 && lum < 95));
+                if ((y >= ySub && !redish) || navy)
+                    bmp.SetPixel(x, y, Color.FromArgb(c.A, tint));
+            }
+        return bmp;
+    }
+
     // Packs PNG frames into a single .ico (PNG-compressed entries, supported by all modern browsers).
     public static void WriteIco(string path, string[] pngPaths)
     {
